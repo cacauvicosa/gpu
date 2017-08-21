@@ -1,0 +1,45 @@
+1. Implementar o Jacobiano sem o calculo do erro. 
+Copiar os dados, executar 20 iterações, retornar os dados.
+Medir tempo de execução e de transferencia com Nvprof. 
+Usar uma matriz de 32 M elementos no mínimo.
+
+2. Implementar o Jacobiando com a redução para
+calcular o erro. Sugestão é usar o exemplo
+de código de redução do livro "Cuda C Programming"
+
+3. Implementar o Jacobiano, onde cada thread 
+calcula 2 pontos e depois onde cada thread calcula
+4 pontos. Comparar o tempo com a versão 2. 
+
+Cada Aluno deve criar uma implementacao.
+
+version1/  para Danilo
+version2/ para Fernando
+version3/ para Fredy
+version4/ para Hector
+version5/ para Kristopher
+version6/ para Lucas
+version7/ para Tiago
+
+Os codigos devem ser 
+jacobiano_20it.cu
+jacobiano.cu
+jacobiano_unroll2.cu
+jacobiano_unroll4.cu
+
+O Default é 32 M elementos float.
+Pode-se passar como parametro
+1. Tamanho
+2. Numero de threads por bloco X.
+3. Numero de threads por bloco Y.
+
+Criar um arquivo com os resultados
+resumidos: tempo de execucao e transferência para
+cada uma das três implementações. 
+
+Os alunos Danilo e Lucas executam na k40.
+Os alunos Fredy e Kristopher na 1070
+Os alunos Hector e Fernando na TitanX
+O aluno Tiago na Jetson 
+
+

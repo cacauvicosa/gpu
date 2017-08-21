@@ -1,0 +1,15 @@
+Trabalho em Grupo
+Lucas e Fredy na K40
+Fredy e Tiago na Jetson
+Kristopher e Hector na TitanX
+Fernando com auxilio Jansen e Michael na 1070.
+
+1. Usar o conversor do Danilo para gerar
+as equações para os exemplos da pasta data.
+Fazer um thread calcular uma evolução de 10 estados a partir
+de um estado inicial. Cada thread deve explorar um estado diferente. 
+Medir o numero de estados explorados por segundo na sua 
+plataforma.
+
+
+2. 
