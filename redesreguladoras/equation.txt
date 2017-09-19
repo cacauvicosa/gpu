@@ -76,7 +76,7 @@
 σApoptosis(t + 1) = sgn[+σCaspase8(t) + σCaspase9(t)];
 σE−cadh(t + 1) = sgn[−σNF−κB(t) − σSlug(t) − σSnail(t) + 3];
 σGlut−1(t + 1) = sgn[+σAKT(t) + σHIF1(t) + σMyc/Max(t) − 1];
-σhT ERT(t + 1) = sgn[+σNF1(t) + σNF−κB(t) + σAKT(t) + σHIF1(t) + σMyc/Max(t) − σp53(t) − σSmadMiz−1(t) − σeEF2(t) − 4];
+σhTERT(t + 1) = sgn[+σNF1(t) + σNF−κB(t) + σAKT(t) + σHIF1(t) + σMyc/Max(t) − σp53(t) − σSmadMiz−1(t) − σeEF2(t) − 4];
 σVEGF(t + 1) = sgn[+σHIF1(t) + σMyc/Max(t)];
 σE2F/CyclinE(t + 1) = sgn[+σE2F(t) + σCycE(t) − 1];
 σcdh1/UbcH10(t + 1) = sgn[+σcdh1(t) + σUbcH10(t) − 1];
