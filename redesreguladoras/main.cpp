@@ -9,70 +9,70 @@ int main() {
     int functionfunctionResult[96], result = 0;
     int function[96][10];
     int functionfunctionValue[96] = { 1, 1, -1, 
-		    						  0, -1, 0, 
-		    						  1, 1, -1, 
-		    						  1, 1, 0, 
-		    						  0, 0, 1, 
-		    						  1, -1, -1, 
-		    						  -1, 1, 1, 
-		    						  1, 1, -1, 
-		    						  -1, -1, -1, 
-		    						  -1, 1, 1, 
-		    						  -1, 0, 0, 
-		    						  -1, 1, 0, 
-		    						  -1, 1, -1, 
-		    						  -1, 1, -1, 
-		    						  0, 0, 1, 
-		    						  -1, 0, 0, 
-		    						  1, -1, 1, 
-		    						  1, 1, 0, 
-		    						  -1, -1, 1, 
-		    						  1, 0, 1, 
-		    						  0, 0, 0, 
-		    						  1, 1, 0, 
-		    						  0, 1, 0, 
-		    						  1, 0, -1, 
-		    						  -1, 1, 0, 
-		    						  1, 0, -1, 
-		    						  -1, -1, 1, 
-		    						  -1, -1, -1, 
-		    						  1, 1, -1, 
-		    						  -1, -1, -1, 
-		    						  -1, 1, -1, 
-		    						  -1, -1, 0 };
-    
-    string functionName[96] = { "thetaMutagen", "thetaGFs", "thetaNutrients", 
-			    				"thetaTNFAlpha", "thetaHypoxia", "thetaGli", 
-			    				"thetaMax", "thetaPTEN", "thetaTGFBeta", 
-			    				"thetaDnaDamage", "thetap53_Mdm2", "thetaAMP_ATP", 
-			    				"thetaNF1", "thetaPKC", "thetaRTK", 
-			    				"thetaRAGS", "thetaRas", "thetaPI3K", 
-			    				"thetaPIP3", "thetaPDK1", "thetaIKK", 
-			    				"thetaNF_KappaB", "thetaRAF", "thetaERK", 
-			    				"thetap90", "thetaAKT", "thetaWNT", 
-			    				"thetaDsh", "thetaAPC", "thetaGSK3", 
-			    				"thetaGSK3_APC", "thetaBeta_cat", "thetaSlug", 
-			    				"thetamTOR", "thetaHIF1", "thetaCOX412", 
-			    				"thetaVHL", "thetaPHDs", "thetaMyc_Max", 
-			    				"thetaMyc", "thetaMXI1", "thetaTSC1_TSC2", 
-			    				"thetaRHEB", "thetap53", "thetaBcl2", 
-			    				"thetaBAX", "thetaBAD", "thetaBcl_XL", 
-			    				"thetaRb", "thetaE2F", "thetap14", 
-			    				"thetaCycA", "thetaCycB", "thetaCycD", 
-			    				"thetaCycE", "thetacdh1", "thetacdc20", 
-			    				"thetaUbcH10", "thetap27", "thetap21", 
-			    				"thetaMdm2", "thetaSmad", "thetaSmadMiz1", 
-			    				"thetaSmadE2F", "thetap15", "thetaFADD", 
-			    				"thetaCaspase8", "thetaBak", "thetaJNK", 
-			    				"thetaFOXO", "thetaFosJun", "thetaROS", 
-			    				"thetaAMPK", "thetaCytoc_APAF1", "thetaCaspase9", 
-			    				"thetaApoptosis", "thetaE_cadh", "thetaGlut1", 
-			    				"thetahTERT", "thetaVEGF", "thetaE2F_CyclinE", 
-			    				"thetacdh1_UbcH10", "thetaTAK1", "thetaGSH", 
-			    				"thetaTCF", "thetaMiz1", "thetap70", 
-			    				"thetaATM_ATR", "thetaCHK1_2", "thetaDNARepair", 
-			    				"thetaeEF2K", "thetaeEF2", "thetap53_PTEN", 
-			    				"thetaLDHA", "thetaAcidLactic", "thetaSnail" };
+      0, -1, 0, 
+      1, 1, -1, 
+      1, 1, 0, 
+      0, 0, 1, 
+      1, -1, -1, 
+      -1, 1, 1, 
+      1, 1, -1, 
+      -1, -1, -1, 
+      -1, 1, 1, 
+      -1, 0, 0, 
+      -1, 1, 0, 
+      -1, 1, -1, 
+      -1, 1, -1, 
+      0, 0, 1, 
+      -1, 0, 0, 
+      1, -1, 1, 
+      1, 1, 0, 
+      -1, -1, 1, 
+      1, 0, 1, 
+      0, 0, 0, 
+      1, 1, 0, 
+      0, 1, 0, 
+      1, 0, -1, 
+      -1, 1, 0, 
+      1, 0, -1, 
+      -1, -1, 1, 
+      -1, -1, -1, 
+      1, 1, -1, 
+      -1, -1, -1, 
+      -1, 1, -1, 
+      -1, -1, 0 };
+      
+      string functionName[96] = { "thetaMutagen", "thetaGFs", "thetaNutrients", 
+      "thetaTNFAlpha", "thetaHypoxia", "thetaGli", 
+      "thetaMax", "thetaPTEN", "thetaTGFBeta", 
+      "thetaDnaDamage", "thetap53_Mdm2", "thetaAMP_ATP", 
+      "thetaNF1", "thetaPKC", "thetaRTK", 
+      "thetaRAGS", "thetaRas", "thetaPI3K", 
+      "thetaPIP3", "thetaPDK1", "thetaIKK", 
+      "thetaNF_KappaB", "thetaRAF", "thetaERK", 
+      "thetap90", "thetaAKT", "thetaWNT", 
+      "thetaDsh", "thetaAPC", "thetaGSK3", 
+      "thetaGSK3_APC", "thetaBeta_cat", "thetaSlug", 
+      "thetamTOR", "thetaHIF1", "thetaCOX412", 
+      "thetaVHL", "thetaPHDs", "thetaMyc_Max", 
+      "thetaMyc", "thetaMXI1", "thetaTSC1_TSC2", 
+      "thetaRHEB", "thetap53", "thetaBcl2", 
+      "thetaBAX", "thetaBAD", "thetaBcl_XL", 
+      "thetaRb", "thetaE2F", "thetap14", 
+      "thetaCycA", "thetaCycB", "thetaCycD", 
+      "thetaCycE", "thetacdh1", "thetacdc20", 
+      "thetaUbcH10", "thetap27", "thetap21", 
+      "thetaMdm2", "thetaSmad", "thetaSmadMiz1", 
+      "thetaSmadE2F", "thetap15", "thetaFADD", 
+      "thetaCaspase8", "thetaBak", "thetaJNK", 
+      "thetaFOXO", "thetaFosJun", "thetaROS", 
+      "thetaAMPK", "thetaCytoc_APAF1", "thetaCaspase9", 
+      "thetaApoptosis", "thetaE_cadh", "thetaGlut1", 
+      "thetahTERT", "thetaVEGF", "thetaE2F_CyclinE", 
+      "thetacdh1_UbcH10", "thetaTAK1", "thetaGSH", 
+      "thetaTCF", "thetaMiz1", "thetap70", 
+      "thetaATM_ATR", "thetaCHK1_2", "thetaDNARepair", 
+      "thetaeEF2K", "thetaeEF2", "thetap53_PTEN", 
+      "thetaLDHA", "thetaAcidLactic", "thetaSnail" };
 
 
     for (int i = 0; i < 96; i++) {//flag
@@ -81,7 +81,7 @@ int main() {
         }
     }
 
-  
+    
     function[0][0] = 100;
     function[1][0] = 100;
     function[2][0] = -100;
@@ -514,10 +514,10 @@ int main() {
         for (int k = 0; k < 96; k++) {
             cout << functionResult[k] << " ";
         }
-	    
+        
         cout << endl;
         
-	    for (int i = 8; i < 96; i++) {
+        for (int i = 8; i < 96; i++) {
             printf("%d depende de ", functionResult[i]); //Printf ou Cout ??
             
             for (int j  =  0; j < 10; ++j) {
