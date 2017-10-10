@@ -6,7 +6,7 @@
 
 using namespace std;
 int main() {
-    int functionfunctionResult[96], sum = 0;
+    int functionfunctionResult[96], result = 0;
     int function[96][10];
     int functionfunctionValue[96] = { 1, 1, -1, 
 		    						  0, -1, 0, 
@@ -486,27 +486,27 @@ int main() {
     functionResult[7] = functionValue[7];
 
     for (int i = 8; i < 96; i++) {
-        sum = 0;
+        result = 0;
         for (int j = 0; j < 10; j++) {
             if(function[i][j] == 1000)
                 break;
             if (function[i][j] >= 100 || function[i][j] <= -100)
-                sum + =  function[i][j]/100;
+                result + =  function[i][j]/100;
             else if(function[i][j] < 0)
-                sum += (-1) * functionValue[abs(function[i][j])];
+                result += (-1) * functionValue[abs(function[i][j])];
             else
-                sum += functionValue[abs(function[i][j])];
+                result += functionValue[abs(function[i][j])];
         }
 
-        SIGN(sum);
+        SIGN(result);
         
 		/*
-		        if (sum > 1)
+		        if (result > 1)
 		            functionResult[i] = 1;
-		        else if (sum < -1) // < 0 ?
+		        else if (result < -1) // < 0 ?
 		            functionResult[i] = -1;
 		        else
-		            functionResult[i] = sum; // 0 ?
+		            functionResult[i] = result; // 0 ?
 		*/
     }
 
@@ -517,7 +517,7 @@ int main() {
 	    
         cout << endl;
         
-	for (int i = 8; i < 96; i++) {
+	    for (int i = 8; i < 96; i++) {
             printf("%d depende de ", functionResult[i]); //Printf ou Cout ??
             
             for (int j  =  0; j < 10; ++j) {
