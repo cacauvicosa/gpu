@@ -6,9 +6,9 @@
 
 using namespace std;
 int main() {
-    int functionfunctionResult[96], result = 0;
+    int functionResult[96], result = 0;
     int function[96][10];
-    int functionfunctionValue[96] = { 1, 1, -1, 
+    int functionValue[96] = { 1, 1, -1, 
       0, -1, 0, 
       1, 1, -1, 
       1, 1, 0, 
@@ -40,7 +40,7 @@ int main() {
       -1, -1, -1, 
       -1, 1, -1, 
       -1, -1, 0 };
-      
+
       string functionName[96] = { "thetaMutagen", "thetaGFs", "thetaNutrients", 
       "thetaTNFAlpha", "thetaHypoxia", "thetaGli", 
       "thetaMax", "thetaPTEN", "thetaTGFBeta", 
@@ -81,7 +81,7 @@ int main() {
         }
     }
 
-    
+
     function[0][0] = 100;
     function[1][0] = 100;
     function[2][0] = -100;
@@ -514,7 +514,7 @@ int main() {
         for (int k = 0; k < 96; k++) {
             cout << functionResult[k] << " ";
         }
-        
+
         cout << endl;
         
         for (int i = 8; i < 96; i++) {
