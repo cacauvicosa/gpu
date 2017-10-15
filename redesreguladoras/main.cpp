@@ -1,14 +1,16 @@
 #include <iostream>
 #include <string>
-#define SIGN(x) (x > 0) ? 1 : ((x < 0) ? -1 : 0)
+#define SIGN(x) (x > 1) ? 1 : ((x < -1) ? -1 : x)
 #define DEBUG 1
 #define FLAG 1000
 
 using namespace std;
 int main() {
-    int functionResult[96], result = 0;
-    int function[96][10];
-    int functionValue[96] = { 1, 1, -1, 
+    int terms = 11;
+    int equations = 96;
+    int functionResult[equations], result = 0;
+    int function[equations][terms];
+    int functionValue[equations] = { 1, 1, -1, 
       0, -1, 0, 
       1, 1, -1, 
       1, 1, 0, 
@@ -75,13 +77,11 @@ int main() {
       "thetaLDHA", "thetaAcidLactic", "thetaSnail" };
 
 
-    for (int i = 0; i < 96; i++) {//flag
-        for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < equations; i++) {
+        for (int j = 0; j < terms; j++) {
             function[i][j] = FLAG;
         }
     }
-
-
     function[0][0] = 100;
     function[1][0] = 100;
     function[2][0] = -100;
@@ -91,8 +91,8 @@ int main() {
     function[6][0] = 100;
     function[7][0] = 100;
     function[8][0] = 34;
+    
     function[9][0] = 0;
-
     function[9][1] = 71;
 
     function[10][0] = 43;
@@ -308,7 +308,7 @@ int main() {
     function[53][7] = -69;
     function[53][8] = 70;
     function[53][9] = 84;
-    function[53][10] = 5; // Invalid position!
+    function[53][10] = 5;
 
     function[54][0] = -48;
     function[54][1] = 49;
@@ -485,43 +485,31 @@ int main() {
     functionResult[6] = functionValue[6];                      // valores constantes
     functionResult[7] = functionValue[7];
 
-    for (int i = 8; i < 96; i++) {
+    for (int i = 8; i < equations; i++) {
         result = 0;
-        for (int j = 0; j < 10; j++) {
-            if(function[i][j] == 1000)
+        for (int j = 0; j < terms; j++) {
+            if(function[i][j] == FLAG)
                 break;
             if (function[i][j] >= 100 || function[i][j] <= -100)
-                result + =  function[i][j]/100;
+                result +=  function[i][j]/100;
             else if(function[i][j] < 0)
                 result += (-1) * functionValue[abs(function[i][j])];
             else
                 result += functionValue[abs(function[i][j])];
         }
-
-        SIGN(result);
-        
-		/*
-		        if (result > 1)
-		            functionResult[i] = 1;
-		        else if (result < -1) // < 0 ?
-		            functionResult[i] = -1;
-		        else
-		            functionResult[i] = result; // 0 ?
-		*/
+       functionResult[i] = SIGN(result);
     }
 
     if(DEBUG) {
-        for (int k = 0; k < 96; k++) {
+        for (int k = 0; k < equations; k++) {
             cout << functionResult[k] << " ";
         }
-
         cout << endl;
         
-        for (int i = 8; i < 96; i++) {
-            printf("%d depende de ", functionResult[i]); //Printf ou Cout ??
-            
-            for (int j  =  0; j < 10; ++j) {
-                if (function[i][j]  ==  1000)
+        for (int i = 8; i < equations; i++) {
+            printf("%d depende de ", functionResult[i]); //Printf ou Cout ?? 
+            for (int j  =  0; j < terms; ++j) {
+                if (function[i][j]  ==  FLAG)
                     break;
                 else {
                     if ((function[i][j] >= 100) || (function[i][j]) <= -100)
