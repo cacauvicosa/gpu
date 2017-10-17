@@ -8,79 +8,30 @@ using namespace std;
 int main() {
     int terms = 11;
     int equations = 96;
-    int functionResult[equations], result = 0;
+    int functionResult[equations],lastResult[equations], result = 0;
     int function[equations][terms];
-    int functionValue[equations] = { 1, 1, -1, 
-      0, -1, 0, 
-      1, 1, -1, 
-      1, 1, 0, 
-      0, 0, 1, 
-      1, -1, -1, 
-      -1, 1, 1, 
-      1, 1, -1, 
-      -1, -1, -1, 
-      -1, 1, 1, 
-      -1, 0, 0, 
-      -1, 1, 0, 
-      -1, 1, -1, 
-      -1, 1, -1, 
-      0, 0, 1, 
-      -1, 0, 0, 
-      1, -1, 1, 
-      1, 1, 0, 
-      -1, -1, 1, 
-      1, 0, 1, 
-      0, 0, 0, 
-      1, 1, 0, 
-      0, 1, 0, 
-      1, 0, -1, 
-      -1, 1, 0, 
-      1, 0, -1, 
-      -1, -1, 1, 
-      -1, -1, -1, 
-      1, 1, -1, 
-      -1, -1, -1, 
-      -1, 1, -1, 
-      -1, -1, 0 };
+    int functionValue[equations] = { 1, 1, -1, 0, -1, 0, 1, 1, -1, 1, 1, 0, 0, 0, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1,
+                                     -1, -1, -1, -1, 1, 1, -1, 0, 0, -1, 1, 0, -1, 1, -1, -1, 1, -1, 0, 0, 1,-1, 0, 0,
+                                     1, -1, 1, 1, 1, 0, -1, -1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, -1, -1, 1,
+                                     0, 1, 0, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 0 };
 
-      string functionName[96] = { "thetaMutagen", "thetaGFs", "thetaNutrients", 
-      "thetaTNFAlpha", "thetaHypoxia", "thetaGli", 
-      "thetaMax", "thetaPTEN", "thetaTGFBeta", 
-      "thetaDnaDamage", "thetap53_Mdm2", "thetaAMP_ATP", 
-      "thetaNF1", "thetaPKC", "thetaRTK", 
-      "thetaRAGS", "thetaRas", "thetaPI3K", 
-      "thetaPIP3", "thetaPDK1", "thetaIKK", 
-      "thetaNF_KappaB", "thetaRAF", "thetaERK", 
-      "thetap90", "thetaAKT", "thetaWNT", 
-      "thetaDsh", "thetaAPC", "thetaGSK3", 
-      "thetaGSK3_APC", "thetaBeta_cat", "thetaSlug", 
-      "thetamTOR", "thetaHIF1", "thetaCOX412", 
-      "thetaVHL", "thetaPHDs", "thetaMyc_Max", 
-      "thetaMyc", "thetaMXI1", "thetaTSC1_TSC2", 
-      "thetaRHEB", "thetap53", "thetaBcl2", 
-      "thetaBAX", "thetaBAD", "thetaBcl_XL", 
-      "thetaRb", "thetaE2F", "thetap14", 
-      "thetaCycA", "thetaCycB", "thetaCycD", 
-      "thetaCycE", "thetacdh1", "thetacdc20", 
-      "thetaUbcH10", "thetap27", "thetap21", 
-      "thetaMdm2", "thetaSmad", "thetaSmadMiz1", 
-      "thetaSmadE2F", "thetap15", "thetaFADD", 
-      "thetaCaspase8", "thetaBak", "thetaJNK", 
-      "thetaFOXO", "thetaFosJun", "thetaROS", 
-      "thetaAMPK", "thetaCytoc_APAF1", "thetaCaspase9", 
-      "thetaApoptosis", "thetaE_cadh", "thetaGlut1", 
-      "thetahTERT", "thetaVEGF", "thetaE2F_CyclinE", 
-      "thetacdh1_UbcH10", "thetaTAK1", "thetaGSH", 
-      "thetaTCF", "thetaMiz1", "thetap70", 
-      "thetaATM_ATR", "thetaCHK1_2", "thetaDNARepair", 
-      "thetaeEF2K", "thetaeEF2", "thetap53_PTEN", 
-      "thetaLDHA", "thetaAcidLactic", "thetaSnail" };
-
+      string functionName[96] = { "thetaMutagen", "thetaGFs", "thetaNutrients", "thetaTNFAlpha", "thetaHypoxia", "thetaGli",
+      "thetaMax", "thetaPTEN", "thetaTGFBeta", "thetaDnaDamage", "thetap53_Mdm2", "thetaAMP_ATP", "thetaNF1", "thetaPKC", "thetaRTK",
+      "thetaRAGS", "thetaRas", "thetaPI3K", "thetaPIP3", "thetaPDK1", "thetaIKK", "thetaNF_KappaB", "thetaRAF", "thetaERK",
+      "thetap90", "thetaAKT", "thetaWNT", "thetaDsh", "thetaAPC", "thetaGSK3", "thetaGSK3_APC", "thetaBeta_cat", "thetaSlug",
+      "thetamTOR", "thetaHIF1", "thetaCOX412", "thetaVHL", "thetaPHDs", "thetaMyc_Max", "thetaMyc", "thetaMXI1", "thetaTSC1_TSC2",
+      "thetaRHEB", "thetap53", "thetaBcl2", "thetaBAX", "thetaBAD", "thetaBcl_XL", "thetaRb", "thetaE2F", "thetap14",
+      "thetaCycA", "thetaCycB", "thetaCycD", "thetaCycE", "thetacdh1", "thetacdc20", "thetaUbcH10", "thetap27", "thetap21",
+      "thetaMdm2", "thetaSmad", "thetaSmadMiz1", "thetaSmadE2F", "thetap15", "thetaFADD", "thetaCaspase8", "thetaBak", "thetaJNK",
+      "thetaFOXO", "thetaFosJun", "thetaROS", "thetaAMPK", "thetaCytoc_APAF1", "thetaCaspase9", "thetaApoptosis", "thetaE_cadh", "thetaGlut1",
+      "thetahTERT", "thetaVEGF", "thetaE2F_CyclinE", "thetacdh1_UbcH10", "thetaTAK1", "thetaGSH", "thetaTCF", "thetaMiz1", "thetap70",
+      "thetaATM_ATR", "thetaCHK1_2", "thetaDNARepair", "thetaeEF2K", "thetaeEF2", "thetap53_PTEN", "thetaLDHA", "thetaAcidLactic", "thetaSnail" };
 
     for (int i = 0; i < equations; i++) {
         for (int j = 0; j < terms; j++) {
             function[i][j] = FLAG;
         }
+        lastResult[i] = FLAG;
     }
     function[0][0] = 100;
     function[1][0] = 100;
@@ -91,7 +42,7 @@ int main() {
     function[6][0] = 100;
     function[7][0] = 100;
     function[8][0] = 34;
-    
+
     function[9][0] = 0;
     function[9][1] = 71;
 
@@ -462,13 +413,13 @@ int main() {
     function[92][0] = 7;
     function[92][1] = 43;
     function[92][2] = -100;
-    
+
     function[93][0] = 34;
     function[93][1] = 38;
     function[93][2] = -100;
-    
+
     function[94][0] = 93;
-    
+
     function[95][0] = 21;
     function[95][1] = -29;
     function[95][2] = -43;
@@ -477,13 +428,14 @@ int main() {
 
     for (int i  =  0; i < 6; ++i) {                           //Valores da entrada
         if (function[i][0] >= 100 || function[i][0] <= -100)// mantendo o mesmo valor da entrada no vetor functionResult
-            functionResult[i] = function[i][0]/100;
+            lastResult[i] = functionResult[i] = function[i][0]/100;
         else
-            functionResult[i] = function[i][0];
+            lastResult[i] = functionResult[i] = function[i][0];
     }
 
-    functionResult[6] = functionValue[6];                      // valores constantes
-    functionResult[7] = functionValue[7];
+    lastResult[6] = functionResult[6] = functionValue[6];                      // valores constantes
+    lastResult[7] = functionResult[7] = functionValue[7];
+
 
     for (int i = 8; i < equations; i++) {
         result = 0;
@@ -499,15 +451,18 @@ int main() {
         }
        functionResult[i] = SIGN(result);
     }
+    for (int i = 8; i < equations; i++)
+        lastResult[i] = functionResult[i];
+
 
     if(DEBUG) {
         for (int k = 0; k < equations; k++) {
             cout << functionResult[k] << " ";
         }
         cout << endl;
-        
+
         for (int i = 8; i < equations; i++) {
-            printf("%d depende de ", functionResult[i]); //Printf ou Cout ?? 
+            printf("%d depende de ", functionResult[i]); //Printf ou Cout ??
             for (int j  =  0; j < terms; ++j) {
                 if (function[i][j]  ==  FLAG)
                     break;
