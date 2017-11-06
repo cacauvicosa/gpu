@@ -8,7 +8,7 @@
 
 using namespace std;
 
-__global__ void calculateAtractor(const int *R){
+__global__ void calculateAtractor(){
     int thetaMutagen = 1;
     int thetaGFs = 1;
     int thetaNutrients = -1;
@@ -479,7 +479,7 @@ __global__ void calculateAtractor(const int *R){
         thetaLDHA  == ::thetaLDHA  ? x[i++] = true : x[i++] = false;
         thetaAcidLactic  == ::thetaAcidLactic  ? x[i++] = true : x[i++] = false;
         thetaSnail == ::thetaSnail ?  x[i++] = true : x[i++] = false;
-        
+
         for(int j = 0; j < 88; j++) if(!x[j]) printf("Achei");
     }
 
@@ -487,6 +487,8 @@ __global__ void calculateAtractor(const int *R){
 
 
 int main() {
+    calculateAtractor<<<1, 1024>>>();
+/*
     bool skip = false;
     int terms = 11;
     int equations = 96;
@@ -968,5 +970,6 @@ int main() {
             printf("da equaçao %d \n", i);
         }
     }
+*/
     return 0;
 }
