@@ -1,3 +1,11 @@
+thetaMutagen = input;
+thetaGFs = input;
+thetaNutrients = input;
+thetaTNFAlpha = input;
+thetaHypoxia = input;
+thetaGli = input;
+thetaMax = 1;
+thetaPTEN = 1;
 thetaTGFBeta = sign(  + thetaHIF1 )
 thetaDnaDamage = sign(  + thetaMutagen + thetaROS )
 thetap53_Mdm2 = sign(  + thetap53 + thetaMdm2 + -1 )
