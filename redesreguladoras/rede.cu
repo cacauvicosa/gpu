@@ -165,23 +165,42 @@ void pass(uint64 *S) {
 
 __global__
 void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, uint32_t numThreads){
-    short n = 3;
-    int transient = 0;
-    int period = 0;
-    short begin = 0;
-    int end = 100;
+    int transient = 0, period = 0;
     uint64 S0[N],S1[N];
     uint32_t thread = blockDim.x * blockIdx.x + threadIdx.x;
-
-    // for (int i = 0; i < N; ++i)
-    // {
-    //     S0[i] = S1[i] = thread;
-    // }
+    uint32_t step =  NUM_STATES / NUM_COPYS; 
+    uint32_t rest =  NUM_STATES % NUM_COPYS;
+    uint32_t begin = 0;
+    uint32_t end = step - 1;
+    bool flag = true;
+    if(thread < numThreads){
+        if(rest > 0){
+            end = end + 1;
+            rest = rest - 1;
+        }else{
+            flag = false;
+        }
+        for(uint32_t i = 0; i < NUM_COPYS;i++){
+            if(i == thread) break;
+            if(rest > 0){
+                end = end + 1;
+                begin = begin + 1;
+                rest = rest - 1;
+            }
+            else if(rest == 0 && flag){
+                begin = begin + 1;
+                flag = 0;
+            }
+            begin += step;
+            end += step;
+        }
 
     for (int i = begin; i < end; ++i) {
-		S0[0] = S1[0] = thread * i;
-		set2bit(6,1,&S0[getBlockIdx(6)]);                       //Obrigatório
-    	set2bit(7,1,&S1[getBlockIdx(7)]);
+        S0[0] = S1[0] = thread;
+        //S0[1] = S1[1] = ;// inicializar com rand
+        //S0[2] = S1[2] = ;// inicializar com rand
+		set2bit(6,1,&S0[getBlockIdx(6)]);      //Obrigatório **Conferir se esta setando o bit certo**
+    	set2bit(7,1,&S1[getBlockIdx(7)]);      //Obrigatório **Conferir se esta setando o bit certo**
         transient = 0;
         period = 0;
         do{
@@ -196,7 +215,13 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
             period++;
         }while (!comp(S0,S1));
         period--;
-        cout << transient << " " << period << std::endl;
+        
+        transients[i] = transient;
+        periods[i]= periodo;
+        for(int s = 0; s < N; s++){
+            attractors[i * N + s] = S0[s];
+        }
+        //cout << transient << " " << period << std::endl;
     }
     return 0;
 }
