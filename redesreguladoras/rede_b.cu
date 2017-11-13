@@ -37,7 +37,7 @@ short getDecValue(short v){
 }
 
 __device__
-short get2bit(short idx,uint64 v){
+short get2bit(short idx, uint64 v){
     idx = idx*2;
     return (v >> idx) & 3;
 }
@@ -46,11 +46,10 @@ __device__
 void set2bit(short idx, short newV, uint64 *v){
     uint64 mask = 3;
     idx = idx*2;
-    newV = (newV == -1)? 3 : newV;
+    newV = (newV == -1) ? 3 : newV;
     *v &= ~(mask << idx);
-    *v |= ((uint64)newV << idx);
+    *v |= ((uint64) newV << idx);
 }
-
 
 __device__
 short getBlockIdx(short idx){
@@ -247,7 +246,6 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
 int main() {
 	// Error code to check return values for CUDA calls
     cudaError_t err = cudaSuccess;
-	uint32_t numCopy = NUM_COPYS;
     // Print the vector length to be used, and compute its size
     size_t numNos = NUM_NOS;
     size_t numState = NUM_STATES;
@@ -315,13 +313,13 @@ int main() {
     uint32_t blocksPerGrid = (NUM_COPYS + threadsPerBlock - 1) / threadsPerBlock;
     printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, threadsPerBlock);
     
-    findAttractor<<< blocksPerGrid, threadsPerBlock >>>(d_attractors, d_transients, d_periods, 12);
+    findAttractor<<< blocksPerGrid, threadsPerBlock >>>(d_attractors, d_transients, d_periods, NUM_COPYS);
     
-    err = cudaGetLastError();
-    if (err != cudaSuccess){
-        fprintf(stderr, "Failed to launch findAttractor kernel (error code %s)!\n", cudaGetErrorString(err));
-        exit(EXIT_FAILURE);
-    }
+    //err = cudaGetLastError();
+    //if (err != cudaSuccess){
+    //    fprintf(stderr, "Failed to launch findAttractor kernel (error code %s)!\n", cudaGetErrorString(err));
+    //    exit(EXIT_FAILURE);
+    //}
 
     // Copy the device result vector in device memory to the host result vector
     // in host memory.
