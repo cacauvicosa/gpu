@@ -235,7 +235,7 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
 	        period--;
 	        
 	        transients[i] = transient;
-	        periods[i]= periodo;
+	        periods[i]= period;
 	        for(int s = 0; s < N; s++){
 	            attractors[i * N + s] = S0[s];
 	        }
