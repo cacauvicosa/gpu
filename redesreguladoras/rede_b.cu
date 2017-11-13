@@ -209,13 +209,14 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
         }
 
 	    for (int i = begin; i < end; ++i) {
-	        S0[0] = S1[0] = thread;
+	        S0[0] = S1[0] = i;
 	        int x = curand(&state) % 2;
 	        int y = curand(&state) % 2;
 	        int x_s = curand(&state) % 2;
 	        int y_s = curand(&state) % 2;
-	        S0[1] = S1[1] =  (x_s) ? x_s*x : x;// inicializar com rand
-	        S0[2] = S1[2] = (y_s) ? y_s*y : y;// inicializar com rand
+	        S0[1] = S1[1] =  (x_s) ? x_s*x : x;// inicializar com rand Inteiro de 32 ou 64 bits
+	        S0[2] = S1[2] = (y_s) ? y_s*y : y;// inicializar com rand Inteiro de 32 ou 64 bits
+	        cout << S0[2] <<" ",S1[2],endl; 
 			set2bit(6, 1, &S0[getBlockIdx(6)]);      //Obrigatório **Conferir se esta setando o bit certo**
 	    	set2bit(7, 1, &S1[getBlockIdx(7)]);      //Obrigatório **Conferir se esta setando o bit certo**
 	        transient = 0;
@@ -247,16 +248,15 @@ int main() {
 	// Error code to check return values for CUDA calls
     cudaError_t err = cudaSuccess;
     // Print the vector length to be used, and compute its size
-    size_t numNos = NUM_NOS;
     size_t numState = NUM_STATES;
-    size_t size = numNos * numState * sizeof(uint64);
+    size_t size = N * numState * sizeof(uint64);
     size_t size_transients = numState*sizeof(uint32_t);
     size_t size_periods = numState*sizeof(uint32_t);
     size_t totalBytes = size+size_transients+size_periods;
     size_t kb = totalBytes/(1024);
     size_t mb = kb/(1024);
     size_t gb = mb/(1024);
-    printf("Find attractors net %lu nodes in %lu initials states.\n", numNos,numState);
+    printf("Find attractors net %d nodes in %lu initials states.\n", N,numState);
     printf("Memory usage: %lu Gb or %lu Mb or %lu Kb.\n", gb, mb, kb);
     
 	uint32_t *h_transients = (uint32_t*)malloc(size_transients);
@@ -340,18 +340,18 @@ int main() {
         fprintf(stderr, "Failed to copy vector d_attractors from device to host (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
-    
+    ///*
     printf("Attractor found:\n");
     for(int i = 0; i < numState; i++){
-       for(int j = 0; j < numNos; j++){
-          printf("%lu", h_attractors[(i * numNos) + j]);
+       for(int j = 0; j < N; j++){
+          printf("%lu   ", h_attractors[(i * N) + j]);
       }
       printf("\n");
     }
     printf("\n");
-
+    //*/
     err = cudaFree(d_transients);
-
+    
     if (err != cudaSuccess){
         fprintf(stderr, "Failed to free device vector d_transients (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
