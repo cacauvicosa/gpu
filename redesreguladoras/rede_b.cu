@@ -340,7 +340,7 @@ int main() {
         fprintf(stderr, "Failed to copy vector d_attractors from device to host (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
-    /*
+    
     printf("Attractor found:\n");
     for(int i = 0; i < numState; i++){
        for(int j = 0; j < numNos; j++){
@@ -349,7 +349,7 @@ int main() {
       printf("\n");
     }
     printf("\n");
-    */
+
     err = cudaFree(d_transients);
 
     if (err != cudaSuccess){
