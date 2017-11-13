@@ -249,7 +249,7 @@ int main() {
     // Print the vector length to be used, and compute its size
     size_t numNos = NUM_NOS;
     size_t numState = NUM_STATES;
-    size_t size = numNos * numState * sizeof(bool);
+    size_t size = numNos * numState * sizeof(uint64);
     size_t size_transients = numState*sizeof(uint32_t);
     size_t size_periods = numState*sizeof(uint32_t);
     size_t totalBytes = size+size_transients+size_periods;
@@ -266,7 +266,6 @@ int main() {
         exit(EXIT_FAILURE);
     }    
     
-    
     uint32_t *h_periods = (uint32_t*)malloc(size_periods);
     // Verifica se houve sucesso na alocação do vetor h_periods
     if (h_periods == NULL){
@@ -274,9 +273,8 @@ int main() {
         exit(EXIT_FAILURE);
     }
     
-    
     //Aloca o vetor para a saida no host
-    bool *h_attractors = (bool *)malloc(size);
+    uint64 *h_attractors = (uint64*)malloc(size);
     // Verifica se houve sucesso na alocação do vetor h_attractors
     if (h_attractors == NULL){
         fprintf(stderr, "Failed to allocate h_attractors!\n");
@@ -300,7 +298,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
     
-    bool *d_attractors = NULL;
+    uint64 *d_attractors = NULL;
     err = cudaMalloc((void **)&d_attractors, size);
 
     if (err != cudaSuccess){
@@ -315,11 +313,11 @@ int main() {
     
     findAttractor<<< blocksPerGrid, threadsPerBlock >>>(d_attractors, d_transients, d_periods, NUM_COPYS);
     
-    //err = cudaGetLastError();
-    //if (err != cudaSuccess){
-    //    fprintf(stderr, "Failed to launch findAttractor kernel (error code %s)!\n", cudaGetErrorString(err));
-    //    exit(EXIT_FAILURE);
-    //}
+    err = cudaGetLastError();
+    if (err != cudaSuccess){
+        fprintf(stderr, "Failed to launch findAttractor kernel (error code %s)!\n", cudaGetErrorString(err));
+        exit(EXIT_FAILURE);
+    }
 
     // Copy the device result vector in device memory to the host result vector
     // in host memory.
