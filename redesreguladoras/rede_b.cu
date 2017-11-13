@@ -344,7 +344,7 @@ int main() {
     printf("Attractor found:\n");
     for(int i = 0; i < numState; i++){
        for(int j = 0; j < numNos; j++){
-          printf("%d", h_attractors[(i * numNos) + j]);
+          printf("%lu", h_attractors[(i * numNos) + j]);
       }
       printf("\n");
     }
