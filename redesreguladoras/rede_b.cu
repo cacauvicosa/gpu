@@ -247,7 +247,7 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
 int main() {
 	// Error code to check return values for CUDA calls
     cudaError_t err = cudaSuccess;
-
+	uint32_t numCopy = NUM_COPYS;
     // Print the vector length to be used, and compute its size
     size_t numNos = NUM_NOS;
     size_t numState = NUM_STATES;
@@ -259,7 +259,7 @@ int main() {
     size_t mb = kb/(1024);
     size_t gb = mb/(1024);
     printf("Find attractors net %lu nodes in %lu initials states.\n", numNos,numState);
-    printf("Memory usage: %lu Gb or %lu Mb or %lu Kb.\n",gb,mb,kb);
+    printf("Memory usage: %lu Gb or %lu Mb or %lu Kb.\n", gb, mb, kb);
     
 	uint32_t *h_transients = (uint32_t*)malloc(size_transients);
     // Verifica se houve sucesso na alocação do vetor h_transients
@@ -287,7 +287,7 @@ int main() {
     
     // Aloca os vetores na GPU (device)
     uint32_t *d_transients = NULL;
-    err = cudaMalloc((void **)&d_transients, NUM_STATES*sizeof(uint32_t));
+    err = cudaMalloc((void **)&d_transients, NUM_STATES * sizeof(uint32_t));
 
     if (err != cudaSuccess){
         fprintf(stderr, "Failed to allocate d_transients (error code %s)!\n", cudaGetErrorString(err));
@@ -295,7 +295,7 @@ int main() {
     }
     
     uint32_t *d_periods = NULL;
-    err = cudaMalloc((void **)&d_periods, NUM_STATES*sizeof(uint32_t));
+    err = cudaMalloc((void **)&d_periods, NUM_STATES * sizeof(uint32_t));
 
     if (err != cudaSuccess){
         fprintf(stderr, "Failed to allocate d_periods (error code %s)!\n", cudaGetErrorString(err));
@@ -312,10 +312,10 @@ int main() {
 
     // Launch the Vector Add CUDA Kernel
     uint32_t threadsPerBlock = 256;
-    uint32_t blocksPerGrid =(NUM_COPYS + threadsPerBlock - 1) / threadsPerBlock;
+    uint32_t blocksPerGrid = (NUM_COPYS + threadsPerBlock - 1) / threadsPerBlock;
     printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, threadsPerBlock);
     
-    findAttractor<<< blocksPerGrid, threadsPerBlock >>>(d_attractors, d_transients, d_periods, NUM_COPYS);
+    findAttractor<<< blocksPerGrid, threadsPerBlock >>>(d_attractors, d_transients, d_periods, numCopy);
     
     err = cudaGetLastError();
     if (err != cudaSuccess){
