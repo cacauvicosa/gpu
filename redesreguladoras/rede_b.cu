@@ -2,7 +2,7 @@
 #include <cuda_runtime.h>
 #include <curand.h>
 #include <curand_kernel.h>
-
+#include <stdio.h>
 #define SIGN(x) (x > 1) ? 1 : ((x < -1) ? -1 : x)
 #define NUM_STATES (1<<20)
 #define NUM_COPYS  (1 << 10)
