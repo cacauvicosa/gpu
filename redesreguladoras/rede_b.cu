@@ -179,7 +179,7 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
     curandState_t state;
 	curand_init(thread, /* the seed controls the sequence of random values that are produced */
               0, /* the sequence number is only important with multiple cores */
-              0, /* the offset is how much extra we advance in the sequence for each call, can be 0 */
+              1, /* the offset is how much extra we advance in the sequence for each call, can be 0 */
               &state);
               
     bool flag = true;
@@ -209,16 +209,17 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
         }
 
 	    for (int i = begin; i < end; ++i) {
-	        S0[0] = S1[0] = i;
-	        int x = curand(&state) % 2;
-	        int y = curand(&state) % 2;
-	        int x_s = curand(&state) % 2;
-	        int y_s = curand(&state) % 2;
-	        S0[1] = S1[1] =  (x_s) ? x_s*x : x;// inicializar com rand Inteiro de 32 ou 64 bits
-	        S0[2] = S1[2] = (y_s) ? y_s*y : y;// inicializar com rand Inteiro de 32 ou 64 bits
-	        cout << S0[2] <<" ",S1[2],endl; 
-			set2bit(6, 1, &S0[getBlockIdx(6)]);      //Obrigatório **Conferir se esta setando o bit certo**
-	    	set2bit(7, 1, &S1[getBlockIdx(7)]);      //Obrigatório **Conferir se esta setando o bit certo**
+	        S0[0] = S1[0] = uint64(i);
+	        S0[1] = S1[1] = curand(&state);
+	        S0[2] = S1[2] = curand(&state);
+	        //printf("initial value %lu %lu %lu \n",S0[0],S0[1],S0[2]);
+			set2bit(6, 1, &S0[getBlockIdx(6)]);      // garante as entradas fixas
+	    	set2bit(7, 1, &S0[getBlockIdx(7)]);      
+            set2bit(6, 1, &S1[getBlockIdx(6)]);      
+	    	set2bit(7, 1, &S1[getBlockIdx(7)]);     
+            S0[0] = S1[0] = 3891063345852666677;// valor default a conhecido
+            S0[1] = S1[1] = 4631373173773694748;
+            S0[2] = S1[2] = 4575646217639806017;
 	        transient = 0;
 	        period = 0;
 	        do{
