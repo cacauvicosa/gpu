@@ -65,15 +65,21 @@ short getBlockIdx(short idx){
 __device__
 void pass(uint64 *S) {
     uint64 Sc[N];
-    for (int i = 0; i < N; ++i) {
-        Sc[i] = S[i];
-    }
-    set2bit(0,1, &S[getBlockIdx(0)]);
-    set2bit(1,1, &S[getBlockIdx(1)]);
-    set2bit(2,-1, &S[getBlockIdx(2)]);
-    set2bit(3,0, &S[getBlockIdx(3)]);
-    set2bit(4,-1, &S[getBlockIdx(4)]);
-    set2bit(5,0, &S[getBlockIdx(5)]);
+    Sc[0] = S[0];
+    Sc[1] = S[1];
+    Sc[2] = S[2];
+    set2bit(0,SIGN( getDecValue(get2bit(0, Sc[getBlockIdx(0)]))), &S[getBlockIdx(0)]);
+    set2bit(1,SIGN( getDecValue(get2bit(1, Sc[getBlockIdx(0)]))), &S[getBlockIdx(1)]);
+    set2bit(2,SIGN( getDecValue(get2bit(2, Sc[getBlockIdx(0)]))), &S[getBlockIdx(2)]);
+    set2bit(3,SIGN( getDecValue(get2bit(3, Sc[getBlockIdx(0)]))), &S[getBlockIdx(3)]);
+    set2bit(4,SIGN( getDecValue(get2bit(4, Sc[getBlockIdx(0)]))), &S[getBlockIdx(4)]);
+    set2bit(5,SIGN( getDecValue(get2bit(5, Sc[getBlockIdx(0)]))), &S[getBlockIdx(5)]);
+//     set2bit(0,1, &S[getBlockIdx(0)]);
+//     set2bit(1,1, &S[getBlockIdx(1)]);
+//     set2bit(2,-1, &S[getBlockIdx(2)]);
+//     set2bit(3,0, &S[getBlockIdx(3)]);
+//     set2bit(4,-1, &S[getBlockIdx(4)]);
+//     set2bit(5,0, &S[getBlockIdx(5)]);
     set2bit(6,1, &S[getBlockIdx(6)]);
     set2bit(7,1, &S[getBlockIdx(7)]);
     set2bit(8,SIGN( + getDecValue(get2bit(34, Sc[getBlockIdx(34)]))), &S[getBlockIdx(8)]);
@@ -220,13 +226,18 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
             S0[0] = S1[0] = 3891063345852666677;// valor default a conhecido
             S0[1] = S1[1] = 4631373173773694748;
             S0[2] = S1[2] = 4575646217639806017;
+            
+            printf("initial value %lu %lu %lu \n",S0[0],S0[1],S0[2]);
+            
 	        transient = 0;
 	        period = 0;
 	        do{
 	            pass(S0);
 	            pass(S0);
+                printf("pass S0 %lu %lu %lu ",S0[0],S0[1],S0[2]);
 	            pass(S1);
 	            transient++;
+                printf("pass S1 %lu %lu %lu\n",S1[0],S1[1],S1[2]);
 	        }while(!comp(S0,S1));
 	
 	        do{
@@ -312,8 +323,8 @@ int main() {
     uint32_t blocksPerGrid = (NUM_COPYS + threadsPerBlock - 1) / threadsPerBlock;
     printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, threadsPerBlock);
     
-    findAttractor<<< blocksPerGrid, threadsPerBlock >>>(d_attractors, d_transients, d_periods, NUM_COPYS);
-    
+    //findAttractor<<< blocksPerGrid, threadsPerBlock >>>(d_attractors, d_transients, d_periods, NUM_COPYS);
+    findAttractor<<< 1,1 >>>(d_attractors, d_transients, d_periods, NUM_COPYS);
     err = cudaGetLastError();
     if (err != cudaSuccess){
         fprintf(stderr, "Failed to launch findAttractor kernel (error code %s)!\n", cudaGetErrorString(err));
