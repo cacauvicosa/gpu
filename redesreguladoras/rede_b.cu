@@ -4,8 +4,8 @@
 #include <curand_kernel.h>
 #include <stdio.h>
 #define SIGN(x) (x > 1) ? 1 : ((x < -1) ? -1 : x)
-#define NUM_STATES (1<<20)
-#define NUM_COPYS  (1 << 10)
+#define NUM_STATES 32//(1<<20)
+#define NUM_COPYS  1 //(1 << 10)
 #define NUM_NOS 96
 #define N 3
 
@@ -215,29 +215,33 @@ void findAttractor(uint64 *attractors, uint32_t *transients, uint32_t *periods, 
         }
 
 	    for (int i = begin; i < end; ++i) {
-	        S0[0] = S1[0] = uint64(i);
+	        /*S0[0] = S1[0] = uint64(i);
 	        S0[1] = S1[1] = curand(&state);
 	        S0[2] = S1[2] = curand(&state);
 	        //printf("initial value %lu %lu %lu \n",S0[0],S0[1],S0[2]);
 			set2bit(6, 1, &S0[getBlockIdx(6)]);      // garante as entradas fixas
 	    	set2bit(7, 1, &S0[getBlockIdx(7)]);      
             set2bit(6, 1, &S1[getBlockIdx(6)]);      
-	    	set2bit(7, 1, &S1[getBlockIdx(7)]);     
+	    	set2bit(7, 1, &S1[getBlockIdx(7)]);*/     
             S0[0] = S1[0] = 3891063345852666677;// valor default a conhecido
             S0[1] = S1[1] = 4631373173773694748;
             S0[2] = S1[2] = 4575646217639806017;
             
-            printf("initial value %lu %lu %lu \n",S0[0],S0[1],S0[2]);
+            //printf("initial value %lu %lu %lu \n",S0[0],S0[1],S0[2]);
             
 	        transient = 0;
 	        period = 0;
 	        do{
 	            pass(S0);
 	            pass(S0);
-                printf("pass S0 %lu %lu %lu ",S0[0],S0[1],S0[2]);
 	            pass(S1);
 	            transient++;
+//                 printf("pass S0 %x %x %x ",S0[0],S0[1],S0[2]);
+//                 printf("pass S1 %x %x %x\n",S1[0],S1[1],S1[2]);
+                printf("pass S0 %lu %lu %lu ",S0[0],S0[1],S0[2]);
                 printf("pass S1 %lu %lu %lu\n",S1[0],S1[1],S1[2]);
+                //printf("%d pass S0 %x %x %x ",transient,S0[0],S0[1],S0[2]);
+                //printf("%d pass S1 %x %x %x\n",transient,S1[0],S1[1],S1[2]);
 	        }while(!comp(S0,S1));
 	
 	        do{
