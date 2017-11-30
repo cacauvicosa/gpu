@@ -4,7 +4,7 @@
 #include <curand_kernel.h>
 #include <stdio.h>
 #include <list>
-#define SIGN(x) (x > 1) ? (short)1 : (short)0
+#define SIGN(x) (x >= 1) ? (short)1 : (short)0
 #define NUM_STATES (1<<18)//23 maior que 17 da erro no vetor h_transients
 #define NUM_COPYS  (1<<20)//22  10
 #define NUM_NOS 96
@@ -259,14 +259,14 @@ int main() {
     printf("Memory usage: %lu Gb or %lu Mb or %lu Kb.\n", gb, mb, kb);
     
 	uint32 *h_transients = (uint32*)malloc(size_transients);
-    // Verifica se houve sucesso na alocação do vetor h_transients
+    // Verifica se houve sucesso na alocaÃ§Ã£o do vetor h_transients
     if (h_transients == NULL){
         fprintf(stderr, "Failed to allocate h_transients!\n");
         exit(EXIT_FAILURE);
     }    
     
     uint32 *h_periods = (uint32*)malloc(size_periods);
-    // Verifica se houve sucesso na alocação do vetor h_periods
+    // Verifica se houve sucesso na alocaÃ§Ã£o do vetor h_periods
     if (h_periods == NULL){
         fprintf(stderr, "Failed to allocate h_periods!\n");
         exit(EXIT_FAILURE);
@@ -274,7 +274,7 @@ int main() {
     
     //Aloca o vetor para a saida no host
     uint32 *h_attractors = (uint32*)malloc(size);
-    // Verifica se houve sucesso na alocação do vetor h_attractors
+    // Verifica se houve sucesso na alocaÃ§Ã£o do vetor h_attractors
     if (h_attractors == NULL){
         fprintf(stderr, "Failed to allocate h_attractors!\n");
         exit(EXIT_FAILURE);
