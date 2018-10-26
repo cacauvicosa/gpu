@@ -1,1 +1,2 @@
 Ensino de GPU com exemplos
+Algoritimo Jacobiano em gpu para diversos casos
